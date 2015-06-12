@@ -25,175 +25,165 @@
   33               	 ;  0 "" 2
   34               	.LM4:
   35               	/* #NOAPP */
-  36 0008 8091 8000 		lds r24,128
-  37 000c 8064      		ori r24,lo8(64)
-  38 000e 8093 8000 		sts 128,r24
+  36 0008 84B5      		in r24,68-32
+  37 000a 8260      		ori r24,lo8(2)
+  38 000c 84BD      		out 68-32,r24
   39               	.LM5:
-  40 0012 82E0      		ldi r24,lo8(2)
-  41 0014 90E0      		ldi r25,hi8(2)
-  42 0016 9093 8900 		sts (136)+1,r25
-  43 001a 8093 8800 		sts 136,r24
-  44               	.LM6:
-  45 001e 8091 6F00 		lds r24,111
-  46 0022 8260      		ori r24,lo8(2)
-  47 0024 8093 6F00 		sts 111,r24
-  48               	.LM7:
-  49               	/* #APP */
-  50               	 ;  25 "m328_pulse.c" 1
-  51 0028 7894      		sei
-  52               	 ;  0 "" 2
-  53               	/* #NOAPP */
-  54               	.LBE5:
-  55               	.LBE4:
-  56               	.LM8:
-  57 002a 8091 8100 		lds r24,129
-  58 002e 8F60      		ori r24,lo8(15)
-  59 0030 8093 8100 		sts 129,r24
-  60               	.L2:
-  61 0034 00C0      		rjmp .L2
-  62               	.LFE3:
-  64               	.global	__vector_11
-  66               	__vector_11:
-  67               	.LFB4:
-  68               	.LM9:
-  69 0036 1F92      		push __zero_reg__
-  70 0038 0F92      		push r0
-  71 003a 0FB6      		in r0,__SREG__
-  72 003c 0F92      		push r0
-  73 003e 1124      		clr __zero_reg__
-  74 0040 8F93      		push r24
-  75 0042 9F93      		push r25
-  76               	/* prologue: Signal */
-  77               	/* frame size = 0 */
-  78               	.LM10:
-  79 0044 85B1      		in r24,37-32
-  80 0046 90E2      		ldi r25,lo8(32)
-  81 0048 8927      		eor r24,r25
-  82 004a 85B9      		out 37-32,r24
-  83               	.LM11:
-  84 004c 9091 0000 		lds r25,contor
-  85 0050 8091 0000 		lds r24,pulseCount
-  86 0054 9817      		cp r25,r24
-  87 0056 01F4      		brne .L6
-  88               	.LM12:
-  89 0058 8091 8100 		lds r24,129
-  90 005c 1092 8100 		sts 129,__zero_reg__
-  91               	.LM13:
-  92 0060 1092 0000 		sts contor,__zero_reg__
-  93               	.LM14:
-  94 0064 1092 0000 		sts pulseCount,__zero_reg__
-  95               	.L6:
-  96               	/* epilogue start */
-  97               	.LM15:
-  98 0068 9F91      		pop r25
-  99 006a 8F91      		pop r24
- 100 006c 0F90      		pop r0
- 101 006e 0FBE      		out __SREG__,r0
- 102 0070 0F90      		pop r0
- 103 0072 1F90      		pop __zero_reg__
- 104 0074 1895      		reti
- 105               	.LFE4:
- 107               	.global	__vector_1
- 109               	__vector_1:
- 110               	.LFB5:
- 111               	.LM16:
- 112 0076 1F92      		push __zero_reg__
- 113 0078 0F92      		push r0
- 114 007a 0FB6      		in r0,__SREG__
- 115 007c 0F92      		push r0
- 116 007e 1124      		clr __zero_reg__
- 117 0080 8F93      		push r24
- 118 0082 EF93      		push r30
- 119 0084 FF93      		push r31
- 120               	/* prologue: Signal */
- 121               	/* frame size = 0 */
- 122               	.LM17:
- 123 0086 86E0      		ldi r24,lo8(6)
- 124 0088 8093 0000 		sts pulseCount,r24
- 125               	.LM18:
- 126 008c 1092 8500 		sts (132)+1,__zero_reg__
- 127 0090 1092 8400 		sts 132,__zero_reg__
- 128               	.LM19:
- 129 0094 E1E8      		ldi r30,lo8(129)
- 130 0096 F0E0      		ldi r31,hi8(129)
- 131 0098 8081      		ld r24,Z
- 132 009a 8F60      		ori r24,lo8(15)
- 133 009c 8083      		st Z,r24
- 134               	/* epilogue start */
- 135               	.LM20:
- 136 009e FF91      		pop r31
- 137 00a0 EF91      		pop r30
- 138 00a2 8F91      		pop r24
- 139 00a4 0F90      		pop r0
- 140 00a6 0FBE      		out __SREG__,r0
- 141 00a8 0F90      		pop r0
- 142 00aa 1F90      		pop __zero_reg__
- 143 00ac 1895      		reti
- 144               	.LFE5:
- 146               	.global	__vector_3
- 148               	__vector_3:
- 149               	.LFB6:
- 150               	.LM21:
- 151 00ae 1F92      		push __zero_reg__
- 152 00b0 0F92      		push r0
- 153 00b2 0FB6      		in r0,__SREG__
- 154 00b4 0F92      		push r0
- 155 00b6 1124      		clr __zero_reg__
- 156 00b8 8F93      		push r24
- 157               	/* prologue: Signal */
- 158               	/* frame size = 0 */
- 159               	.LM22:
- 160 00ba 83E0      		ldi r24,lo8(3)
- 161 00bc 8093 0000 		sts read,r24
- 162               	.LM23:
- 163 00c0 8091 0000 		lds r24,read
- 164 00c4 83FD      		sbrc r24,3
- 165 00c6 00C0      		rjmp .L11
- 166               	.LM24:
- 167 00c8 82E0      		ldi r24,lo8(2)
- 168 00ca 8093 0000 		sts pulseCount,r24
- 169               	.LM25:
- 170 00ce 1092 8500 		sts (132)+1,__zero_reg__
- 171 00d2 1092 8400 		sts 132,__zero_reg__
- 172               	.LM26:
- 173 00d6 8091 8100 		lds r24,129
- 174 00da 8F60      		ori r24,lo8(15)
- 175 00dc 8093 8100 		sts 129,r24
- 176               	.L11:
- 177               	/* epilogue start */
- 178               	.LM27:
- 179 00e0 8F91      		pop r24
- 180 00e2 0F90      		pop r0
- 181 00e4 0FBE      		out __SREG__,r0
- 182 00e6 0F90      		pop r0
- 183 00e8 1F90      		pop __zero_reg__
- 184 00ea 1895      		reti
- 185               	.LFE6:
- 187               	.global	contor
- 188               	.global	contor
- 189               		.section .bss
- 192               	contor:
- 193 0000 00        		.skip 1,0
- 194               	.global	pulseCount
- 195               		.data
- 198               	pulseCount:
- 199 0000 0A        		.byte	10
- 200               		.comm read,1,1
- 249               	.Letext0:
+  40 000e 81E0      		ldi r24,lo8(1)
+  41 0010 87BD      		out 71-32,r24
+  42               	.LM6:
+  43 0012 8091 6E00 		lds r24,110
+  44 0016 8260      		ori r24,lo8(2)
+  45 0018 8093 6E00 		sts 110,r24
+  46               	.LM7:
+  47               	/* #APP */
+  48               	 ;  25 "m328_pulse.c" 1
+  49 001c 7894      		sei
+  50               	 ;  0 "" 2
+  51               	/* #NOAPP */
+  52               	.LBE5:
+  53               	.LBE4:
+  54               	.LM8:
+  55 001e 85B5      		in r24,69-32
+  56 0020 8660      		ori r24,lo8(6)
+  57 0022 85BD      		out 69-32,r24
+  58               	.L2:
+  59 0024 00C0      		rjmp .L2
+  60               	.LFE3:
+  62               	.global	__vector_14
+  64               	__vector_14:
+  65               	.LFB4:
+  66               	.LM9:
+  67 0026 1F92      		push __zero_reg__
+  68 0028 0F92      		push r0
+  69 002a 0FB6      		in r0,__SREG__
+  70 002c 0F92      		push r0
+  71 002e 1124      		clr __zero_reg__
+  72 0030 8F93      		push r24
+  73 0032 9F93      		push r25
+  74               	/* prologue: Signal */
+  75               	/* frame size = 0 */
+  76               	.LM10:
+  77 0034 85B1      		in r24,37-32
+  78 0036 90E2      		ldi r25,lo8(32)
+  79 0038 8927      		eor r24,r25
+  80 003a 85B9      		out 37-32,r24
+  81               	.LM11:
+  82 003c 9091 0000 		lds r25,contor
+  83 0040 8091 0000 		lds r24,pulseCount
+  84 0044 9817      		cp r25,r24
+  85 0046 01F4      		brne .L6
+  86               	.LM12:
+  87 0048 85B5      		in r24,69-32
+  88 004a 15BC      		out 69-32,__zero_reg__
+  89               	.LM13:
+  90 004c 1092 0000 		sts contor,__zero_reg__
+  91               	.LM14:
+  92 0050 1092 0000 		sts pulseCount,__zero_reg__
+  93               	.L6:
+  94               	/* epilogue start */
+  95               	.LM15:
+  96 0054 9F91      		pop r25
+  97 0056 8F91      		pop r24
+  98 0058 0F90      		pop r0
+  99 005a 0FBE      		out __SREG__,r0
+ 100 005c 0F90      		pop r0
+ 101 005e 1F90      		pop __zero_reg__
+ 102 0060 1895      		reti
+ 103               	.LFE4:
+ 105               	.global	__vector_1
+ 107               	__vector_1:
+ 108               	.LFB5:
+ 109               	.LM16:
+ 110 0062 1F92      		push __zero_reg__
+ 111 0064 0F92      		push r0
+ 112 0066 0FB6      		in r0,__SREG__
+ 113 0068 0F92      		push r0
+ 114 006a 1124      		clr __zero_reg__
+ 115 006c 8F93      		push r24
+ 116               	/* prologue: Signal */
+ 117               	/* frame size = 0 */
+ 118               	.LM17:
+ 119 006e 86E0      		ldi r24,lo8(6)
+ 120 0070 8093 0000 		sts pulseCount,r24
+ 121               	.LM18:
+ 122 0074 16BC      		out 70-32,__zero_reg__
+ 123               	.LM19:
+ 124 0076 85B5      		in r24,69-32
+ 125 0078 8660      		ori r24,lo8(6)
+ 126 007a 85BD      		out 69-32,r24
+ 127               	/* epilogue start */
+ 128               	.LM20:
+ 129 007c 8F91      		pop r24
+ 130 007e 0F90      		pop r0
+ 131 0080 0FBE      		out __SREG__,r0
+ 132 0082 0F90      		pop r0
+ 133 0084 1F90      		pop __zero_reg__
+ 134 0086 1895      		reti
+ 135               	.LFE5:
+ 137               	.global	__vector_3
+ 139               	__vector_3:
+ 140               	.LFB6:
+ 141               	.LM21:
+ 142 0088 1F92      		push __zero_reg__
+ 143 008a 0F92      		push r0
+ 144 008c 0FB6      		in r0,__SREG__
+ 145 008e 0F92      		push r0
+ 146 0090 1124      		clr __zero_reg__
+ 147 0092 8F93      		push r24
+ 148               	/* prologue: Signal */
+ 149               	/* frame size = 0 */
+ 150               	.LM22:
+ 151 0094 83E0      		ldi r24,lo8(3)
+ 152 0096 8093 0000 		sts read,r24
+ 153               	.LM23:
+ 154 009a 8091 0000 		lds r24,read
+ 155 009e 83FD      		sbrc r24,3
+ 156 00a0 00C0      		rjmp .L11
+ 157               	.LM24:
+ 158 00a2 82E0      		ldi r24,lo8(2)
+ 159 00a4 8093 0000 		sts pulseCount,r24
+ 160               	.LM25:
+ 161 00a8 16BC      		out 70-32,__zero_reg__
+ 162               	.LM26:
+ 163 00aa 85B5      		in r24,69-32
+ 164 00ac 8660      		ori r24,lo8(6)
+ 165 00ae 85BD      		out 69-32,r24
+ 166               	.L11:
+ 167               	/* epilogue start */
+ 168               	.LM27:
+ 169 00b0 8F91      		pop r24
+ 170 00b2 0F90      		pop r0
+ 171 00b4 0FBE      		out __SREG__,r0
+ 172 00b6 0F90      		pop r0
+ 173 00b8 1F90      		pop __zero_reg__
+ 174 00ba 1895      		reti
+ 175               	.LFE6:
+ 177               	.global	contor
+ 178               	.global	contor
+ 179               		.section .bss
+ 182               	contor:
+ 183 0000 00        		.skip 1,0
+ 184               	.global	pulseCount
+ 185               		.data
+ 188               	pulseCount:
+ 189 0000 0A        		.byte	10
+ 190               		.comm read,1,1
+ 239               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 m328_pulse.c
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:2      *ABS*:0000003f __SREG__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:3      *ABS*:0000003e __SP_H__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:4      *ABS*:0000003d __SP_L__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:5      *ABS*:00000034 __CCP__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:18     .text:00000000 main
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:66     .text:00000036 __vector_11
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:192    .bss:00000000 contor
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:198    .data:00000000 pulseCount
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:109    .text:00000076 __vector_1
-C:\Users\FLUTUR~1\AppData\Local\Temp/ccBZXjIH.s:148    .text:000000ae __vector_3
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:2      *ABS*:0000003f __SREG__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:3      *ABS*:0000003e __SP_H__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:4      *ABS*:0000003d __SP_L__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:5      *ABS*:00000034 __CCP__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:18     .text:00000000 main
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:64     .text:00000026 __vector_14
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:182    .bss:00000000 contor
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:188    .data:00000000 pulseCount
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:107    .text:00000062 __vector_1
+C:\Users\FLUTUR~1\AppData\Local\Temp/ccnkUeSg.s:139    .text:00000088 __vector_3
                             *COM*:00000001 read
 
 UNDEFINED SYMBOLS

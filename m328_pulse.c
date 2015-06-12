@@ -4,9 +4,9 @@
 #include <avr/interrupt.h>
 
 // Timer 0 prescaling - divides by 1024=101, 256=100, 64=011, 8=010, 1=001
-#define START_TIMER1 TCCR1B |= ((1 << WGM12)|(1<<CS12)|(1<<CS11)|(1<<CS10))
-#define STOP_TIMER1  TCCR1B &= ((0 << WGM12)|(0<<CS12)|(0<<CS11)|(0<<CS10))
-#define CLEAR_TIMER1 TCNT1   = 0
+#define START_TIMER0 TCCR0B |= ((0 << WGM02)|(1<<CS02)|(1<<CS01)|(0<<CS00))
+#define STOP_TIMER0  TCCR0B &= ((0 << WGM02)|(0<<CS02)|(0<<CS01)|(0<<CS00))
+#define CLEAR_TIMER0 TCNT0   = 0
 
 volatile unsigned char contor = 0;
 volatile unsigned char pulseCount = 10;
@@ -19,9 +19,9 @@ static inline void  SystemInit(void)
 	//PCMSK |= ((1<<PCINT3)|(0<<PCINT4));		// Pin Change Enable Mask PB2 or PB3
 	//GIMSK |= ((1<<PCIE)  |(1<<INT0));			// Enable external interrupts INT0 & PCINT
 	
-	TCCR1A |= ((0 << COM1A1) | (1 << COM1A0)); //Toggle OC0A/OC0B on Compare Match
-	OCR1A = 2; 								// Cycles for interrupt @50ms @4.8MHz
-	TIMSK1 |= (1 << OCIE1A);					// Enable timer compare interrupt
+	TCCR0A |= ((1 << WGM01)); //Toggle OC0A/OC0B on Compare Match
+	OCR0A = 1; 								// Cycles for interrupt @50ms @4.8MHz
+	TIMSK0 |= (1 << OCIE0A);					// Enable timer compare interrupt
 	sei();										// Activate global interrupts
 }
  
@@ -29,17 +29,17 @@ int main(void)
 {
 	DDRB |= ((1 << PD6)|(1 << PB5));						// Set OC0A as an output
 	SystemInit();
-	START_TIMER1;
+	START_TIMER0;
 	while(1) { }								// Don't do anything in main
 }
 
-ISR(TIMER1_COMPA_vect)							// Interrupt Service Routine
+ISR(TIMER0_COMPA_vect)							// Interrupt Service Routine
 {
 	//contor++;
 	PORTB ^= _BV(PB5);
 if (contor == pulseCount)						//Stops the timer on specified no of pulses
    {
-	STOP_TIMER1;
+	STOP_TIMER0;
 	contor = 0;
 	pulseCount = 0;
    }
@@ -49,8 +49,8 @@ if (contor == pulseCount)						//Stops the timer on specified no of pulses
 ISR (INT0_vect)									// Interrupt Service Routine INT0
 {
 	pulseCount = 6;
-	CLEAR_TIMER1;
-	START_TIMER1;
+	CLEAR_TIMER0;
+	START_TIMER0;
 	return;
 }
 
@@ -60,8 +60,8 @@ ISR(PCINT0_vect)								// Interrupt Service Routine PCINT0
 if (bit_is_clear(read,3))						// This is falling edge
    {
 	pulseCount = 2;
-	CLEAR_TIMER1;
-	START_TIMER1;
+	CLEAR_TIMER0;
+	START_TIMER0;
    }
 	return;
 }
