@@ -4,7 +4,7 @@
 #include <avr/interrupt.h>
 
 // Timer 0 prescaling - divides by 1024=101, 256=100, 64=011, 8=010, 1=001
-#define START_TIMER0 TCCR0B |= ((0 << WGM02)|(1<<CS02)|(1<<CS01)|(0<<CS00))
+#define START_TIMER0 TCCR0B |= ((0 << WGM02)|(1<<CS02)|(0<<CS01)|(1<<CS00))
 #define STOP_TIMER0  TCCR0B &= ((0 << WGM02)|(0<<CS02)|(0<<CS01)|(0<<CS00))
 #define CLEAR_TIMER0 TCNT0   = 0
 
@@ -19,15 +19,16 @@ static inline void  SystemInit(void)
 	//PCMSK |= ((1<<PCINT3)|(0<<PCINT4));		// Pin Change Enable Mask PB2 or PB3
 	//GIMSK |= ((1<<PCIE)  |(1<<INT0));			// Enable external interrupts INT0 & PCINT
 	
-	TCCR0A |= ((1 << WGM01)); //Toggle OC0A/OC0B on Compare Match
-	OCR0A = 1; 								// Cycles for interrupt @50ms @4.8MHz
+	TCCR0A |= ((1 << WGM01)|(0 << COM0A1) | (0 << COM0A0)); //Toggle OC0A/OC0B on Compare Match
+	OCR0A = 255; 								// Cycles for interrupt @50ms @4.8MHz
 	TIMSK0 |= (1 << OCIE0A);					// Enable timer compare interrupt
 	sei();										// Activate global interrupts
 }
  
 int main(void)
 {
-	DDRB |= ((1 << PD6)|(1 << PB5));						// Set OC0A as an output
+	DDRB |= (1 << PB5);						// Set OC0A as an output
+	DDRD |= (1 << PD6);
 	SystemInit();
 	START_TIMER0;
 	while(1) { }								// Don't do anything in main
